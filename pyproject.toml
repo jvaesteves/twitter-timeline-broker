@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "twitter-timeline-broker"
+version = "0.1.0"
+description = ""
+authors = ["João Esteves <jvaesteves@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.79.0"
+hypercorn = {extras = ["uvloop"], version = "^0.13.2"}
+tortoise-orm = {extras = ["asyncpg"], version = "^0.19.2"}
+ulid-py = "^1.1.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+flakeheaven = "^2.1.3"
+black = "^22.6.0"
+mypy = "^0.971"
+aerich = "^0.6.3"
+pre-commit = "^2.20.0"
+hypothesis = "^6.53.0"
+mutmut = "^2.4.1"
+flake8-length = "^0.3.0"
+flake8-bandit = "^3.0.0"
+
+[tool.aerich]
+tortoise_orm = "app.orm_settings.TORTOISE_ORM"
+location = "./migrations"
+src_folder = "./."
+
+[tool.flakeheaven]
+format = "grouped"
+max_line_length = 90
+show_source = true
+
+[tool.flakeheaven.plugins]
+pycodestyle = ["+*", "-E501", "-W505"]
+flake8-length = ["+*"]
+flake8-bandit = ["+*"]
+pyflakes = ["+*"]
+mccabe = ["+*"]
+pylint = ["+*"]
+
+[tool.flakeheaven.exceptions."**/__init__.py"]
+pyflakes = ["-F401"]
+
+[tool.flakeheaven.exceptions."tests/"]
+flake8-bandit = ["-S101"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

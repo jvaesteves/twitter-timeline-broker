@@ -1,0 +1,20 @@
+-- upgrade --
+CREATE TABLE IF NOT EXISTS "user" (
+    "id" UUID NOT NULL  PRIMARY KEY,
+    "username" VARCHAR(16) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS "tweet" (
+    "id" UUID NOT NULL  PRIMARY KEY,
+    "text" VARCHAR(280) NOT NULL,
+    "author_id" UUID NOT NULL REFERENCES "user" ("id") ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS "aerich" (
+    "id" SERIAL NOT NULL PRIMARY KEY,
+    "version" VARCHAR(255) NOT NULL,
+    "app" VARCHAR(100) NOT NULL,
+    "content" JSONB NOT NULL
+);
+CREATE TABLE IF NOT EXISTS "followers" (
+    "user_id" UUID NOT NULL REFERENCES "user" ("id") ON DELETE CASCADE,
+    "follows_id" UUID NOT NULL REFERENCES "user" ("id") ON DELETE CASCADE
+);
