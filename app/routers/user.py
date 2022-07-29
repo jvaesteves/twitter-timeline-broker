@@ -1,4 +1,3 @@
-from typing import List
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException
@@ -9,7 +8,7 @@ from ..models import User, UserPydantic
 router = APIRouter(prefix="/user")
 
 
-@router.get("/", response_model=List[UserPydantic])
+@router.get("/", response_model=list[UserPydantic])
 async def get_users():
     return await UserPydantic.from_queryset(User.all())
 
