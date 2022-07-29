@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 from tortoise.contrib.fastapi import HTTPNotFoundError
 
 from ..models import User, UserPydantic
@@ -13,7 +13,7 @@ async def get_users():
     return await UserPydantic.from_queryset(User.all())
 
 
-@router.post("/", response_model=UserPydantic)
+@router.post("/", response_model=UserPydantic, status_code=status.HTTP_201_CREATED)
 async def create_user(user: UserPydantic):
     created_user = await User.create(**user.dict(exclude_unset=True))
     return await UserPydantic.from_tortoise_orm(created_user)

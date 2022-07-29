@@ -22,6 +22,9 @@ hypothesis = "^6.53.0"
 mutmut = "^2.4.1"
 flake8-length = "^0.3.0"
 flake8-bandit = "^3.0.0"
+flake8-alfred = "^1.1.1"
+flake8-comprehensions = "^3.10.0"
+flake8-pytest-style = "^1.6.0"
 
 [tool.aerich]
 tortoise_orm = "app.orm_settings.TORTOISE_ORM"
@@ -39,7 +42,9 @@ flake8-length = ["+*"]
 flake8-bandit = ["+*"]
 pyflakes = ["+*"]
 mccabe = ["+*"]
-pylint = ["+*"]
+flake8-alfred = ["+*"]
+flake8-comprehensions = ["+*"]
+flake8-pytest-style = ["+*"]
 
 [tool.flakeheaven.exceptions."**/__init__.py"]
 pyflakes = ["-F401"]

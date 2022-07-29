@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 from tortoise.contrib.fastapi import HTTPNotFoundError
 
 from ..models import Tweet, TweetPydantic
@@ -13,7 +13,7 @@ async def get_tweets():
     return await TweetPydantic.from_queryset(Tweet.all())
 
 
-@router.post("/", response_model=TweetPydantic)
+@router.post("/", response_model=TweetPydantic, status_code=status.HTTP_201_CREATED)
 async def create_tweet(tweet: TweetPydantic):
     created_tweet = await Tweet.create(**tweet.dict(exclude_unset=True))
     return await TweetPydantic.from_tortoise_orm(created_tweet)
